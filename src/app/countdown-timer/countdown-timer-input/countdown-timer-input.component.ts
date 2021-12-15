@@ -16,8 +16,13 @@ export class CountdownTimerInputComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
+
   startCounter() {
+    if(this.counter == undefined || this.counter <= 0){
+      return 0
+    }
     this.toggleButton = false
     console.log(this.counter)
     this.counterStatusEvent.emit("start");
@@ -36,14 +41,17 @@ export class CountdownTimerInputComponent implements OnInit {
     this.toggleButton = true
     this.counterTimeEvent.emit(this.counter)
     this.pauseTimeLine();
+    this.pausedTimeArray = [];
 
   }
 
   playTimeLine() {
     
     this.intvl = setInterval(() => {
-       this.counter = this.counter -1
-       this.counterTimeEvent.emit(this.counter)
+      if(this.counter > 0){
+        this.counter = this.counter -1
+        this.counterTimeEvent.emit(this.counter)
+      }
     }, 1000);
   }
 
