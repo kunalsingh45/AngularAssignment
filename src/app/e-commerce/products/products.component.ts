@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, OnInit } from '@angular/core';
 
 const PRODUCTS= [
   {
@@ -208,19 +208,24 @@ const PRODUCTS= [
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, AfterViewChecked {
   products:any[] = PRODUCTS;
-
+  viewType:string = "grid"
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ngAfterViewChecked(): void {
+      if(this.viewType == 'list') {
+        this.listView();
+      }
   }
   // Get the elements with class="column"
   elements: any = document.getElementsByClassName("column");
 
   // List View
   listView() {
-    debugger
     for (let i = 0; i < this.elements.length; i++) {
       this.elements[i].style.width = "48%";
     }
@@ -229,11 +234,11 @@ export class ProductsComponent implements OnInit {
     let container = document.getElementById("btnContainer");
     let btns = container.getElementsByClassName("btn");
     btns[0].className += " active"
+    this.viewType = "list"
   }
 
   // Grid View
   gridView() {
-    debugger
     for (let i = 0; i < this.elements.length; i++) {
       this.elements[i].style.width = "23%";
     }
@@ -242,11 +247,11 @@ export class ProductsComponent implements OnInit {
     let container = document.getElementById("btnContainer");
     let btns = container.getElementsByClassName("btn");
     btns[1].className += " active"
+    this.viewType = "grid"
   }
 
   filterPrice(event){
     let value = +event.target.value;
-    debugger
     if(value == 20){
       this.products = PRODUCTS.filter(product=>{
         return product.Price < 20;
@@ -264,6 +269,11 @@ export class ProductsComponent implements OnInit {
         this.products = PRODUCTS.filter(product=>{
           return product.Price  > 100;
         })
+      }
+      if(this.viewType == "list"){
+        this.listView();
+      } else{
+         this.gridView();
       }
     }
 }

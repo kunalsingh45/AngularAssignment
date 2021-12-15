@@ -1,0 +1,16 @@
+<h2>Students marks table</h2>
+<table>
+    <tr>
+      <th *ngFor="let header of headers" (click)="sortHeader(header)">{{header}}</th>
+    </tr>
+    <tr *ngFor="let student of studentsDetails">
+      <td>{{student.Name}}</td>
+      <td>{{student.Class}}</td>
+      <td>{{student.Section}}</td>
+      <td>{{student.Math}}</td>
+      <td>{{student.Physics}}</td>
+      <td>{{student.Chemistry}}</td>
+      <td>{{student.English}}</td>
+
+    </tr>
+  </table>
