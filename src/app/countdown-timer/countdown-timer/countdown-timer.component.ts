@@ -8,8 +8,18 @@ import { Component, OnInit } from '@angular/core';
 export class CountdownTimerComponent implements OnInit {
 
   constructor() { }
-
+  counterTime: number= -1;
+  counterStatus:string;
   ngOnInit() {
   }
 
+  getCounterTime(event){
+    console.log(event)
+    this.counterTime = event;
+  }
+
+  getCounterStatus(event){
+    console.log(event)
+    this.counterStatus = event;
+  }
 }

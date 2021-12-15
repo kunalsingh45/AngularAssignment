@@ -1,1 +1,9 @@
-<p>countdown-timer works!</p>
+
+<div class="container">
+    <div class="item">
+        <app-countdown-timer-output [counterTimer]="counterTime" [counterStatus]="counterStatus"></app-countdown-timer-output>
+    </div>
+    <div class="item">
+        <app-countdown-timer-input (counterTimeEvent)="getCounterTime($event)" (counterStatusEvent)="getCounterStatus($event)"></app-countdown-timer-input>
+    </div>
+</div>
