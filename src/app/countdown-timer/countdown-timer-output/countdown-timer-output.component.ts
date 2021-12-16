@@ -17,21 +17,5 @@ export class CountdownTimerOutputComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     console.log(this.counterTimer)
     console.log(this.counterStatus)
-    // if(this.counterStatus =="start"){
-    //   this.playTimeLine(this.counterTimer)
-    // } else if(this.counterStatus == "pause"){
-    //     this.pauseTimeLine(this.counterTimer)
-    // }
   }
-
-  // playTimeLine(value) {
-    
-  //   this.intvl = setInterval(() => {
-  //      this.counterTimer = this.counterTimer -1
-  //   }, 1000);
-  // }
-
-  // pauseTimeLine(value){
-  //   clearInterval(this.intvl);
-  // }
 }

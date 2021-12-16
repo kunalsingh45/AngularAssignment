@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CoundownTimerServiceService } from '../coundown-timer-service.service';
 
 @Component({
   selector: 'app-countdown-timer-input',
@@ -6,14 +7,11 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./countdown-timer-input.component.scss']
 })
 export class CountdownTimerInputComponent implements OnInit {
-
   counter: number;
   toggleButton: boolean = true;
   pausedTimeArray = [];
-  @Output() counterTimeEvent = new EventEmitter<number>();
-  @Output() counterStatusEvent = new EventEmitter<string>();
   intvl:any;
-  constructor() { }
+  constructor(private counterService: CoundownTimerServiceService) { }
 
   ngOnInit() {
 
@@ -26,21 +24,21 @@ export class CountdownTimerInputComponent implements OnInit {
     }
     this.toggleButton = false
     console.log(this.counter)
-    this.counterStatusEvent.emit("start");
-    this.counterTimeEvent.emit(this.counter)
+    this.counterService.counterStatus.next("start");
+    this.counterService.counterTimer.next(this.counter)
     this.playTimeLine();
   }
   pauseCounter() {
     this.toggleButton = true
-    this.counterStatusEvent.emit("pause")
+    this.counterService.counterStatus.next("pause")
     this.pauseTimeLine()
     this.pausedTimeArray.push(this.counter)
   }
   resetCounter() {
-    this.counterStatusEvent.emit("reset")
+    this.counterService.counterStatus.next("reset")
     this.counter = 0;
     this.toggleButton = true
-    this.counterTimeEvent.emit(this.counter)
+    this.counterService.counterTimer.next(this.counter)
     this.pauseTimeLine();
     this.pausedTimeArray = [];
 
@@ -54,14 +52,13 @@ export class CountdownTimerInputComponent implements OnInit {
         if (this.counter == 0){
           this.toggleButton = true
         }
-        this.counterTimeEvent.emit(this.counter)
-      } 
+        this.counterService.counterTimer.next(this.counter)
+      }
     }, 1000);
   }
 
   pauseTimeLine(){
     clearInterval(this.intvl);
   }
-
 
 }
