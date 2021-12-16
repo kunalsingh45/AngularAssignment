@@ -46,25 +46,6 @@ export class CountdownTimerInputComponent implements OnInit, OnChanges {
     this.toggleButton = true
     this.counterTimeEvent.emit(this.counter)
     this.pausedTimeArray = [];
-
   }
-
-  // playTimeLine() {
-    
-  //   this.intvl = setInterval(() => {
-  //     if(this.counter > 0){
-  //       this.counter = this.counter -1
-  //       if (this.counter == 0){
-  //         this.toggleButton = true
-  //       }
-  //       this.counterTimeEvent.emit(this.counter)
-  //     } 
-  //   }, 1000);
-  // }
-
-  // pauseTimeLine(){
-  //   clearInterval(this.intvl);
-  // }
-
 
 }

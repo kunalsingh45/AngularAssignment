@@ -1,7 +1,7 @@
 <div class="container">
     <div class="item">
         <label for="counter">Enter Timer Limit</label>
-        <input type="number" id="counter" name="counter" #counterValue [(ngModel)]="counter" class="input">
+        <input type="number" id="counter" name="counter" [(ngModel)]="counter" class="input">
     </div>
     <div class="button item">
         <button type="submit" (click)="startCounter()" *ngIf="toggleButton" >Start</button>

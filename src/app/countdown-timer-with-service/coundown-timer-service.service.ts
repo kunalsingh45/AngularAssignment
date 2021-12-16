@@ -5,8 +5,10 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class CoundownTimerServiceService {
-  
+
   counterTimer = new Subject();
   counterStatus = new Subject();
+  counterStatusWithTime = new Subject();
+  
   constructor() { }
 }

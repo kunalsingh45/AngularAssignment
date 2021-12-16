@@ -23,7 +23,6 @@ export class CountdownTimerOutputComponent implements OnInit, OnChanges {
     } else if (this.counterStatus == "reset") {
       this.pauseTimeLine();
       this.counterStatusWithTimeEvent.emit({ status: "reset", value: this.counterTimer })
-
     }
   }
 

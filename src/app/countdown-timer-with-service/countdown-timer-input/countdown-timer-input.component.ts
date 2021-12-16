@@ -10,55 +10,41 @@ export class CountdownTimerInputComponent implements OnInit {
   counter: number;
   toggleButton: boolean = true;
   pausedTimeArray = [];
-  intvl:any;
+  intvl: any;
+  counterStatusFromOutput: any
   constructor(private counterService: CoundownTimerServiceService) { }
 
   ngOnInit() {
-
+    this.counterService.counterStatusWithTime.subscribe((statusObj) => {
+      this.counterStatusFromOutput = statusObj
+      if (this.counterStatusFromOutput.status == "pause") {
+        this.pausedTimeArray.push(this.counterStatusFromOutput.value)
+        this.counterService.counterTimer.next(this.counterStatusFromOutput.value)
+      } else if (this.counterStatusFromOutput.status == "finished") {
+        this.toggleButton = true
+      }
+    })
   }
 
   startCounter() {
-    if(this.counter == undefined || this.counter <= 0){
+    if (this.counter == undefined || this.counter <= 0) {
       alert("please enter value greater than 0 to start timer")
       return 0
     }
     this.toggleButton = false
-    console.log(this.counter)
     this.counterService.counterStatus.next("start");
     this.counterService.counterTimer.next(this.counter)
-    this.playTimeLine();
   }
   pauseCounter() {
     this.toggleButton = true
     this.counterService.counterStatus.next("pause")
-    this.pauseTimeLine()
-    this.pausedTimeArray.push(this.counter)
   }
   resetCounter() {
     this.counterService.counterStatus.next("reset")
     this.counter = 0;
     this.toggleButton = true
     this.counterService.counterTimer.next(this.counter)
-    this.pauseTimeLine();
     this.pausedTimeArray = [];
 
   }
-
-  playTimeLine() {
-    
-    this.intvl = setInterval(() => {
-      if(this.counter > 0){
-        this.counter = this.counter -1
-        if (this.counter == 0){
-          this.toggleButton = true
-        }
-        this.counterService.counterTimer.next(this.counter)
-      }
-    }, 1000);
-  }
-
-  pauseTimeLine(){
-    clearInterval(this.intvl);
-  }
-
 }
