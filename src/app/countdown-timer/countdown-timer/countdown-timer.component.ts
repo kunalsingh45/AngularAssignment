@@ -10,16 +10,19 @@ export class CountdownTimerComponent implements OnInit {
   constructor() { }
   counterTime: number= -1;
   counterStatus:string;
+  counterStatusFromOutput:any
   ngOnInit() {
   }
 
   getCounterTime(event){
-    console.log(event)
     this.counterTime = event;
   }
 
   getCounterStatus(event){
-    console.log(event)
     this.counterStatus = event;
+  }
+
+  getCounterStatusWithTime(event){
+    this.counterStatusFromOutput = event
   }
 }
