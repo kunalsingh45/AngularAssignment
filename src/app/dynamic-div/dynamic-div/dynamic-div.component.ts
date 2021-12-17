@@ -22,7 +22,7 @@ export class DynamicDivComponent implements OnInit, OnDestroy {
     const div = this.renderer.createElement('div');
     const button = this.renderer.createElement('button');
     const text = this.renderer.createText('Click Me');
-    this.renderer.setAttribute(button, 'aria-hidden', 'true');
+    // this.renderer.setAttribute(button, 'aria-hidden', 'true');
     this.clicklistener = this.renderer.listen(button, 'click', (evt) => {
       this.generateAlert(index)
      })
