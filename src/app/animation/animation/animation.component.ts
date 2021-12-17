@@ -7,16 +7,25 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
   styleUrls: ['./animation.component.scss'],
   animations: [
     trigger('flyInOut', [
-      state('in', style({ transform: 'translateX(-100%)' })),
-      transition('void <=> *',[animate("5000ms 0ms ease-in", keyframes([
-            style({transform: 'translateX(-100%) rotateX(0deg)',offset: 0}),
-            style({transform: 'translateX(25%) rotateX(90deg)',offset: 0.40}),
-            style({transform: 'translateX(50%) rotateX(180deg)',offset: 0.50}),
-            style({transform: 'translateX(75%) rotateX(270deg)',offset: 0.75}),
-            style({transform: 'translateX(100%) rotateX(360deg)',offset: 1})
-          ]))
-      ]) 
-    ]) 
+      state('flyIn', style({ transform: 'translateX(0)' })),
+      transition(':enter', [
+        style({ transform: 'translateX(-100%)'}),
+        animate('2500ms ease-in', keyframes([
+                  style({transform: 'translateX(-100%) rotateX(0deg)', opacity:0,offset: 0}),
+                  style({transform: 'translateX(-100px) rotateX(0deg)',opacity:0,offset: 0.40}),
+                  style({transform: 'translateX(-10px) rotateX(0deg)',opacity:0.5,offset: 0.50}),
+                  style({transform: 'translateX(25%) rotateX(180deg)',opacity:1,offset: 1})
+                ]))
+      ]),
+      transition(':leave', [
+        animate('2500ms ease-out', keyframes([
+          style({transform: 'translateX(50%) rotateX(270deg)',opacity:1,offset: 0.50}),
+          style({transform: 'translateX(70%) rotateX(320deg)',opacity:1,offset: 0.80}),
+          style({ transform: 'translateX(72%) rotateX(360deg)',opacity:0,offset: 1 })
+        ]))
+      ])
+    ])
+ 
 ]
 })
 export class AnimationComponent implements OnInit, OnDestroy {
@@ -30,7 +39,7 @@ export class AnimationComponent implements OnInit, OnDestroy {
   ngOnInit(){
     this.intvl = setInterval(()=>{
       this.toggleState()
-    },5200)
+    },2500)
   }
 
   toggleState(){

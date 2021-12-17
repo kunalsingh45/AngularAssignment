@@ -1,16 +1,4 @@
 
-// $icons: ("0": 95, "1": 85, "2": 75,"3": 65, "4": 55, "5": 45,"6": 35,"7": 25);
-
-// @each $index, $wid in $icons {
-//   .div#{$index} {
-//     border: 2px solid black;
-//     position: relative;
-//     height: #{$wid}vh;
-//     top:4.5vh;
-//     left:2vw
-//   }
-// }
-
 @for $i from 0 through 7 {
     .div#{$i} {
         width:#{95 - $i * 4}vw;
@@ -18,7 +6,7 @@
         position: relative;
         height: #{95 - $i * 10}vh;
         top:4.5vh;
-        left:2vw
+        left:2vw;
     }
   }
 
