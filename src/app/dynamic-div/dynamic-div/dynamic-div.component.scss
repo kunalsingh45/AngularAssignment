@@ -18,3 +18,8 @@ button:hover{
     border-radius: 2px;
     background-color: cadetblue;
 }
+
+button:focus {
+    border: 1px solid black;
+    border-radius: 2px;
+  }
