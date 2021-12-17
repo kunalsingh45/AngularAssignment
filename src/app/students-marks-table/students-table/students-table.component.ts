@@ -15,6 +15,8 @@ export class StudentsTableComponent implements OnInit {
   studentsNarksDetails: Students[];
   headers:any[];
   count: number = 0
+  sort:string = "none"
+  sortedHeader ="";
   ngOnInit() {
     this.studentService.getStudentsData().subscribe((res: Students[]) => {
       this.studentsDetails = res;
@@ -27,7 +29,9 @@ export class StudentsTableComponent implements OnInit {
 
   sortHeader(header){
     this.count++
+    this.sortedHeader = header;
     if(this.count == 1){
+      this.sort = "asc";
       this.studentsDetails.sort( (a,b)=>{
         if ( a[header] < b[header]){
           return -1;
@@ -38,6 +42,7 @@ export class StudentsTableComponent implements OnInit {
         return 0;
       })
     } else if(this.count == 2){
+      this.sort = "desc";
       this.studentsDetails.sort( (a,b)=>{
         if ( a[header] < b[header]){
           return 1;
@@ -48,6 +53,7 @@ export class StudentsTableComponent implements OnInit {
         return 0;
       })
     }else if (this.count ==3){
+      this.sort = "none";
       this.studentsDetails = [...this.studentsNarksDetails];
       this.count = 0
     }
