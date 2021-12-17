@@ -15,7 +15,7 @@
 <br>
 
 <div class="row">
-    <div class="column" style="border: 1px solid black;" *ngFor="let product of products">
+    <div class="column" #column style="border: 1px solid black;" *ngFor="let product of products">
         <h2>{{product.Name}}</h2>
         <p>{{product.Price | currency}}</p>
     </div>

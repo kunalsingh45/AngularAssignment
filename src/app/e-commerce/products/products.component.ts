@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, OnInit, QueryList, Renderer2, ViewChildren } from '@angular/core';
 
 const PRODUCTS= [
   {
@@ -210,8 +210,9 @@ const PRODUCTS= [
 })
 export class ProductsComponent implements OnInit, AfterViewChecked {
   products:any[] = PRODUCTS;
-  viewType:string = "grid"
-  constructor() { }
+  viewType:string = "grid";
+  @ViewChildren("column",{ read: ElementRef }) elements :QueryList<ElementRef>
+  constructor(private renderer: Renderer2) { }
 
   ngOnInit() {
   }
@@ -221,14 +222,13 @@ export class ProductsComponent implements OnInit, AfterViewChecked {
         this.listView();
       }
   }
-  // Get the elements with class="column"
-  elements: any = document.getElementsByClassName("column");
+
 
   // List View
   listView() {
-    for (let i = 0; i < this.elements.length; i++) {
-      this.elements[i].style.width = "48%";
-    }
+    this.elements.forEach((column: ElementRef) => {
+        this.renderer.setStyle(column.nativeElement,"width","48%")   
+    })
     let current = document.getElementsByClassName("active");
     current[0].className = current[0].className.replace(" active", "");
     let container = document.getElementById("btnContainer");
@@ -239,9 +239,9 @@ export class ProductsComponent implements OnInit, AfterViewChecked {
 
   // Grid View
   gridView() {
-    for (let i = 0; i < this.elements.length; i++) {
-      this.elements[i].style.width = "23%";
-    }
+    this.elements.forEach((column: ElementRef) => {
+        this.renderer.setStyle(column.nativeElement,"width","23%")   
+    })
     let current = document.getElementsByClassName("active");
     current[0].className = current[0].className.replace(" active", "");
     let container = document.getElementById("btnContainer");
